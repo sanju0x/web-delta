@@ -181,6 +181,7 @@ html {
     left: 100px;
     width: 963.92px;
     -webkit-mask-image: linear-gradient(268.85deg, #00000000 0%, #000000 40%);
+    mask-image: linear-gradient(268.85deg, #00000000 0%, #000000 40%);
     filter: drop-shadow(-4px 4px 29px #000000);
     transition: all 1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
     translate: 10%;
@@ -565,4 +566,366 @@ html {
 
 .button-textonly {
     font-size: 1.33rem;
+}
+
+/* ------------------------------------ FAQ ---------------------------------- */
+
+.faq-section {
+    padding: 60px calc(var(--padding-side) / 1.5);
+    margin-top: 30px;
+}
+
+.faq-core {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+}
+
+.faq-core h2 {
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgb(var(--color-text0));
+}
+
+.faq-core h1 {
+    font-size: 2.5rem;
+}
+
+.faq-accordion {
+    width: min(820px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.faq-item {
+    background-color: rgb(var(--color-graphene2));
+    border-radius: calc(var(--rounding-size) / 1.5);
+    padding: 0 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.faq-item[open] {
+    border-color: rgba(var(--color-accent-2), 0.5);
+    background-color: rgba(var(--color-graphene3), 0.8);
+}
+
+.faq-item summary {
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    padding: 16px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: "expand_more";
+    font-family: "Material Symbols Outlined";
+    font-size: 1.4rem;
+    transition: transform 0.25s ease;
+}
+
+.faq-item[open] summary::after {
+    transform: rotate(180deg);
+}
+
+.faq-content {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: max-height 0.35s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+.faq-item[open] .faq-content {
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.faq-content p {
+    padding-bottom: 18px;
+    text-align: left;
+    color: rgb(var(--color-text1));
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+@media only screen and (max-width: 900px) {
+    .faq-section {
+        padding: 50px 20px;
+    }
+    .faq-core h1 {
+        font-size: 2rem;
+    }
+    .faq-item summary {
+        font-size: 1rem;
+    }
+}
+
+/* ------------------------------------ Legal -------------------------------- */
+
+.legal-page {
+    background: radial-gradient(circle at top, rgba(255, 183, 0, 0.08), transparent 50%), rgb(var(--color-graphene0));
+}
+
+.navbar-item-active {
+    color: rgb(var(--color-accent-2));
+}
+
+.legal-hero {
+    margin: 120px auto 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 60px clamp(20px, 6vw, var(--padding-side));
+    background: linear-gradient(135deg, rgba(var(--color-accent-1), 0.25), rgba(var(--color-graphene2), 0.9));
+    border-radius: calc(var(--rounding-size) * 2);
+    max-width: 1200px;
+    width: 100%;
+}
+
+.legal-hero h1 {
+    font-size: clamp(2.5rem, 4vw, 4rem);
+}
+
+.legal-kicker {
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgb(var(--color-text0));
+    font-size: 0.9rem;
+}
+
+.legal-cta {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.legal-button {
+    padding: 12px 30px;
+}
+
+.button-outline {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: transparent;
+}
+
+.button-outline:hover {
+    border-color: rgba(var(--color-accent-2), 0.6);
+    color: rgb(var(--color-accent-2));
+}
+
+.legal-hero-card {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    border-radius: calc(var(--rounding-size) * 1.5);
+    max-width: 320px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.legal-hero-card h2 {
+    font-size: 2rem;
+    margin: 10px 0;
+}
+
+.legal-main {
+    padding: 60px clamp(20px, 6vw, var(--padding-side));
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.legal-section {
+    background: rgba(18, 18, 18, 0.4);
+    border-radius: calc(var(--rounding-size) * 1.5);
+    padding: 40px 35px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.legal-section-header {
+    margin-bottom: 30px;
+}
+
+.legal-entries {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.legal-entry {
+    border-left: 3px solid rgba(var(--color-accent-2), 0.6);
+    padding-left: 20px;
+}
+
+.legal-entry h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.legal-entry ul {
+    padding-left: 18px;
+    line-height: 1.6;
+}
+
+@media only screen and (max-width: 900px) {
+    .legal-hero,
+    .legal-main {
+        padding: 40px 20px;
+    }
+    .legal-hero {
+        flex-direction: column;
+    }
+    .legal-section {
+        padding: 25px 18px;
+    }
+}
+
+/* ----------------------------- Team Showcases ----------------------------- */
+
+.team-section {
+    margin: 100px auto;
+    padding: 70px clamp(20px, 6vw, 80px);
+    text-align: center;
+    border-radius: calc(var(--rounding-size) * 2);
+    background: rgba(10, 10, 10, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    max-width: 1200px;
+}
+
+.team-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 12px;
+}
+
+.team-section h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+.team-subtitle {
+    max-width: 640px;
+    margin: 12px auto 45px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    justify-items: center;
+}
+
+.team-grid.single {
+    grid-template-columns: minmax(280px, 420px);
+    justify-content: center;
+}
+
+.team-card {
+    background: rgba(8, 8, 8, 0.5);
+    border-radius: calc(var(--rounding-size) * 1.5);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 420px;
+}
+
+.team-card-media img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    filter: saturate(0.7);
+}
+
+.team-card-body {
+    padding: 25px 30px 35px;
+    background: linear-gradient(180deg, rgba(15, 15, 15, 0.3), rgba(25, 25, 25, 0.95));
+    text-align: left;
+}
+
+.team-role {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 8px;
+}
+
+.team-card-body h3 {
+    font-size: 1.75rem;
+    margin-bottom: 12px;
+}
+
+.team-bio {
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+}
+
+.team-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.team-links a {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.team-links a:hover {
+    transform: translateY(-6px);
+    border-color: rgba(var(--color-accent-2), 0.8);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.team-links span {
+    font-size: 1.3rem;
+}
+
+.team-card--lead {
+    border: 1px solid rgba(var(--color-accent-2), 0.3);
+}
+
+@media only screen and (max-width: 700px) {
+    .team-section {
+        padding: 60px 20px;
+    }
+    .team-card-media img {
+        height: 260px;
+    }
+    .team-card-body {
+        padding: 22px 22px 30px;
+    }
+    .team-links {
+        justify-content: center;
+    }
 }
