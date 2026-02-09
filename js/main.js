@@ -318,7 +318,13 @@ const observer = new IntersectionObserver((entries) => {
 
 const navdlbutton = document.getElementById("nav-dlbutton");
 const sections = document.querySelectorAll(".body-container");
+function openNav() {
+    document.querySelector('.overlay').classList.add('active');
+}
 
+function closeNav() {
+    document.querySelector('.overlay').classList.remove('active');
+}
 sections.forEach((el) => observer.observe(el));
 
 if (window.addEventListener) {
