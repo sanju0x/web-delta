@@ -1,7 +1,3 @@
-/* ============================================================================
- * GLOBAL CONSTANTS
- * ============================================================================ */
-
 const DOWNLOAD_URL = `https://discord.com/oauth2/authorize?client_id=1284517036260855901&permissions=66448640&integration_type=0&scope=bot+applications.commands`;
 
 const NOTICE = {
@@ -24,159 +20,40 @@ const INVITESS = {
     denyButtonText: "Close",
 };
 
-/* ============================================================================
- * DOM ELEMENTS CACHE
- * ============================================================================ */
+// ------------------------------------------------------
 
-let elements = {
-    video: null,
-    blurScreen: null,
-    centerText: null,
-    brandingImage: null,
-    overlay: null,
-    navbarContainer: null,
-    navDownloadButton: null
-};
+// Main Video Background Ambient Setup
 
-/* ============================================================================
- * UTILITY FUNCTIONS
- * ============================================================================ */
+document.addEventListener("DOMContentLoaded", function() {
+    const video = document.querySelector('.main-video video');
+    const colorThief = new ColorThief();
 
-/**
- * Debounce function to limit the rate at which a function can fire
- */
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-/**
- * Throttle function to ensure a function is called at most once per specified period
- */
-function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
-
-/**
- * Check if element is in viewport
- */
-function isElementInViewport(el) {
-    if (!el) return false;
-    
-    const rect = el.getBoundingClientRect();
-    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-    const windowWidth = window.innerWidth || document.documentElement.clientWidth;
-    
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= windowHeight &&
-        rect.right <= windowWidth
-    );
-}
-
-/**
- * Create visibility change handler
- */
-function createVisibilityHandler(el, callback) {
-    let wasVisible = false;
-    
-    return function() {
-        const isVisible = isElementInViewport(el);
-        if (isVisible !== wasVisible) {
-            wasVisible = isVisible;
-            if (typeof callback === 'function') {
-                callback(isVisible);
-            }
-        }
-    };
-}
-
-/* ============================================================================
- * MAIN VIDEO BACKGROUND SETUP
- * ============================================================================ */
-
-function setupVideoBackground() {
-    const video = elements.video;
-    if (!video) return;
-    
-    // Use requestAnimationFrame for better performance
-    let animationFrameId = null;
-    
     video.addEventListener('loadeddata', function() {
-        const colorThief = new ColorThief();
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        
-        // Set canvas size to match video (scaled down for performance)
-        canvas.width = 100;
-        canvas.height = Math.floor(100 * (video.videoHeight / video.videoWidth));
-        
+        // Function to update box shadow color
         function updateBoxShadow() {
-            // Only update if video is playing and ready
-            if (video.paused || video.ended || video.readyState < 2) {
-                animationFrameId = requestAnimationFrame(updateBoxShadow);
-                return;
-            }
-            
-            // Draw video frame to canvas (scaled down for performance)
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            
-            try {
-                const dominantColor = colorThief.getColor(canvas);
-                const [r, g, b] = dominantColor;
-                const rgbColor = `rgb(${r}, ${g}, ${b})`;
-                
-                // Use CSS custom properties for better performance
-                video.style.setProperty('--shadow-color', rgbColor);
-                video.style.boxShadow = `0 0 70px 10px ${rgbColor}, 
-                                         0 0 50px 10px rgba(${r}, ${g}, ${b}, 0.5)`;
-            } catch (error) {
-                // Fallback color if extraction fails
-                video.style.boxShadow = `0 0 70px 10px rgba(100, 100, 255, 0.8),
-                                         0 0 50px 10px rgba(100, 100, 255, 0.4)`;
-            }
-            
-            // Limit update rate to 15fps for performance
-            setTimeout(() => {
-                animationFrameId = requestAnimationFrame(updateBoxShadow);
-            }, 66);
-        }
-        
-        // Start the animation
-        updateBoxShadow();
-    });
-    
-    // Clean up on video stop
-    video.addEventListener('pause', () => {
-        if (animationFrameId) {
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = null;
-        }
-    });
-}
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
 
-/* ============================================================================
- * DYNAMIC TITLE ANIMATION
- * ============================================================================ */
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-const TITLES = [
+            const dominantColor = colorThief.getColor(canvas);
+            const rgbColor = `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})`;
+
+            video.style.boxShadow = `0 0 70px 10px ${rgbColor}, 
+                                      0 0 50px 10px rgba(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}, 0.5)`;
+        }
+
+        setInterval(updateBoxShadow, 1);
+    });
+});
+// ------------------------------------------------------
+
+// ------------------------------------------------------
+
+// Define the array of names directly in script.js
+const names = [
     "Delta Music",
     "@Delta 4K",
     "Listen to the music",
@@ -187,369 +64,273 @@ const TITLES = [
     "Apple Music Streamers",
     "DJ Support",
     "Make An Room Of Music"
-];
-
-class TitleAnimator {
-    constructor() {
-        this.currentTitle = '';
-        this.isAnimating = false;
-        this.animationSpeed = 100; // ms per character
-        this.intervalId = null;
-    }
-    
-    getRandomTitle() {
-        const titles = TITLES.filter(title => title !== this.currentTitle);
-        return titles[Math.floor(Math.random() * titles.length)];
-    }
-    
-    animateTitle(newTitle) {
-        if (this.isAnimating || !newTitle) return;
-        
-        this.isAnimating = true;
-        const currentTitle = document.title;
-        let step = 0;
-        const totalSteps = currentTitle.length + newTitle.length;
-        
-        this.intervalId = setInterval(() => {
-            if (step < currentTitle.length) {
-                // Delete phase
-                document.title = currentTitle.substring(0, currentTitle.length - step - 1);
-            } else if (step < totalSteps) {
-                // Type phase
-                const typeIndex = step - currentTitle.length;
-                document.title = newTitle.substring(0, typeIndex + 1);
-            } else {
-                // Animation complete
-                clearInterval(this.intervalId);
-                this.currentTitle = newTitle;
-                this.isAnimating = false;
-                return;
-            }
-            step++;
-        }, this.animationSpeed);
-    }
-    
-    start() {
-        // Initial title
-        this.currentTitle = this.getRandomTitle();
-        document.title = this.currentTitle;
-        
-        // Start periodic changes
-        setInterval(() => {
-            if (!this.isAnimating) {
-                const newTitle = this.getRandomTitle();
-                this.animateTitle(newTitle);
-            }
-        }, 5000);
-    }
-}
-
-/* ============================================================================
- * BLUR SCREEN HANDLER
- * ============================================================================ */
-
-function setupBlurScreen() {
-    const { blurScreen, centerText, video, brandingImage } = elements;
-    
-    if (!blurScreen || !centerText || !video || !brandingImage) return;
-    
-    centerText.addEventListener("click", function() {
-        // Play video if supported
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.warn("Video autoplay prevented:", error);
-                // Show play button or instructions
-            });
+  ];
+  
+  // Function to get a random name from the names array
+  function getRandomName() {
+    const randomIndex = Math.floor(Math.random() * names.length);
+    return names[randomIndex];
+  }
+  
+  // Function to simulate typing animation
+  function typeAnimation(name) {
+    const title = document.title;
+    let typed = '';
+    let deleting = true; // Flag to indicate if we are deleting or typing
+    let index = 0; // Index for the current character
+    const interval = setInterval(() => {
+      if (deleting) {
+        // Deleting characters
+        if (typed.length > 0) {
+          typed = typed.slice(0, -1); // Remove the last character
+          document.title = typed; // Update the title
+        } else {
+          deleting = false; // Switch to typing mode
+          index = 0; // Reset index for typing
         }
+      } else {
+        // Typing characters
+        if (index < name.length) {
+          typed += name[index]; // Add the next character
+          document.title = typed; // Update the title
+          index++; // Move to the next character
+        } else {
+          clearInterval(interval); // Stop the interval when done
+        }
+      }
+    }, 100); // Adjust the speed of typing and deleting
+  }
+  
+  // Function to change the document title to a random name with typing animation
+  function changeTitleToRandomName() {
+    const randomName = getRandomName(); // Get a random name from the array
+    typeAnimation(randomName); // Simulate typing animation
+  }
+  
+  // Set up interval to change title every 5 seconds
+  setInterval(changeTitleToRandomName, 5000); // Change title every 5 seconds
+
+
+// ------------------------------------------------------
+
+
+
+// THE SCREEN
+document.addEventListener("DOMContentLoaded", function() {
+    const blurScreen = document.querySelector(".blur-screen");
+    const centerText = document.querySelector(".center-text");
+    const video = document.getElementById('video');
+    const brandingImage = document.querySelector('.branding > img'); // Select the branding image
+
+    centerText.addEventListener("click", function() {
+        // Play the video
+        video.play(); // Start playing the video when the center text is clicked
         
-        // Smooth scroll to top
+        // Scroll to top smoothly
         window.scrollTo({
             top: 0,
-            behavior: 'smooth'
+            behavior: 'smooth' // Smooth scrolling effect
         });
-        
-        // Fade out blur screen
-        blurScreen.style.transition = 'opacity 0.5s ease, visibility 0.5s ease';
-        blurScreen.style.opacity = '0';
-        blurScreen.style.visibility = 'hidden';
-        
-        // Animate branding image
-        brandingImage.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease';
-        brandingImage.style.transform = 'translateY(-20px) scale(1.1)';
-        brandingImage.style.opacity = '0.9';
-        
-        // Reset animation after completion
+
+        // Fade out the blur screen
+        blurScreen.style.opacity = "0"; // Fade out the blur screen
         setTimeout(() => {
-            brandingImage.style.transform = 'translateY(0) scale(1)';
-            brandingImage.style.opacity = '1';
-        }, 800);
+            blurScreen.style.display = "none"; // Remove from view after fade out
+        }, 500); // Delay to allow fade-out effect
+
+        // Add animation class to the branding image
+        brandingImage.classList.add('animate'); // Trigger the animation
     });
-    
-    // Video playback control
+
+    // Video playback control (optional)
     video.addEventListener('click', function() {
         if (video.paused) {
-            video.play();
+            video.play(); // Play the video if it's paused
         } else {
-            video.pause();
+            video.pause(); // Pause the video if it's playing
         }
     });
-}
+});
 
-/* ============================================================================
- * OVERLAY MENU FUNCTIONS
- * ============================================================================ */
+  
+// ------------------------------------------------------
 
-function openNav() {
-    const overlay = elements.overlay;
-    const navbar = elements.navbarContainer;
-    
-    if (overlay) {
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
-    }
-    
-    if (navbar) {
-        navbar.style.opacity = '0';
-        navbar.style.pointerEvents = 'none';
-    }
-}
-
-function closeNav() {
-    const overlay = elements.overlay;
-    const navbar = elements.navbarContainer;
-    
-    if (overlay) {
-        overlay.classList.remove('active');
-        document.body.style.overflow = ''; // Restore scrolling
-    }
-    
-    if (navbar) {
-        navbar.style.opacity = '1';
-        navbar.style.pointerEvents = 'auto';
+function invitelink() {
+    if (navigator.userAgent.indexOf("Win") != -1) {
+        const url = DOWNLOAD_URL; // This can still be used if needed later
+        Swal.fire(NOTICE).then(() => {
+            Swal.fire(INVITESS).then((result) => {
+                if (result.isConfirmed) {
+                    // Directly navigate to the bot invite link
+                    window.location.href = "https://discord.com/oauth2/authorize?client_id=1284517036260855901&permissions=66448640&integration_type=0&scope=bot+applications.commands"; // Replace with actual bot invite link
+                }
+                Swal.close();
+            });
+            setTimeout(() => {
+                window.location.href = url; // Optional: keep this if you still want to redirect after the Swal
+            }, 1000);
+        });
+    } else {
+        Swal.fire(INCOMPATIBLE_SWAL);
     }
 }
-
-/* ============================================================================
- * INVITE LINK HANDLER
- * ============================================================================ */
 
 function invitelink() {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
+    const url = DOWNLOAD_URL; // This can still be used if needed later
+
     if (isMobile) {
-        // Direct redirect for mobile users
-        window.location.href = DOWNLOAD_URL;
-        return;
-    }
-    
-    // Desktop flow with SweetAlerts
-    Swal.fire(NOTICE).then(() => {
-        Swal.fire(INVITESS).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "https://discord.com/oauth2/authorize?client_id=1284517036260855901&permissions=66448640&integration_type=0&scope=bot+applications.commands";
-            } else {
+        // Directly redirect mobile users to the download URL
+        window.location.href = url;
+    } else {
+        // For non-mobile users, show the alerts
+        Swal.fire(NOTICE).then(() => {
+            Swal.fire(INVITESS).then((result) => {
+                if (result.isConfirmed) {
+                    // Directly navigate to the bot invite link
+                    window.location.href = "https://discord.com/oauth2/authorize?client_id=1284517036260855901&permissions=66448640&integration_type=0&scope=bot+applications.commands"; // Replace with actual bot invite link
+                }
                 Swal.close();
-            }
+            });
+            setTimeout(() => {
+                window.location.href = url; // Optional: keep this if you still want to redirect after the Swal
+            }, 1000);
         });
-    }).catch(() => {
-        // Fallback if SweetAlert fails
-        window.location.href = DOWNLOAD_URL;
-    });
+    }
+}
+// ------------------------------------------------------
+
+function openNav() {
+    document.getElementById("myNav").style.height = "100%";
+    document.getElementById("navbar-container").style.opacity = "0";
 }
 
-/* ============================================================================
- * MODULES INTERACTIVE SYSTEM
- * ============================================================================ */
+function closeNav() {
+    document.getElementById("myNav").style.height = "0%";
+    document.getElementById("navbar-container").style.opacity = "1";
+}
+// ------------------------------------------------------
 
-const module_list = window.module_list || {};
+function changeAbtModuleTo(name, next) {
+    if (
+        document.getElementsByClassName("module-array-img-selected").length != 0
+    ) {
+        document
+            .getElementsByClassName("module-array-img-selected")[0]
+            .classList.remove("module-array-img-selected");
+    }
+    next.classList.add("module-array-img-selected");
 
-function changeAbtModuleTo(name, element) {
-    const selectedElements = document.getElementsByClassName("module-array-img-selected");
-    
-    // Remove selection from previous element
-    if (selectedElements.length > 0) {
-        selectedElements[0].classList.remove("module-array-img-selected");
-    }
-    
-    // Add selection to clicked element
-    if (element) {
-        element.classList.add("module-array-img-selected");
-    }
-    
     const whole = document.getElementById("modules-interactive-info");
     const title = document.getElementById("about-module-info-header");
-    const description = document.getElementById("about-module-info-description");
-    const image = document.getElementById("about-module-info-img");
-    
-    if (!whole || !title || !description || !image) return;
-    
-    // Add animation class
+    const des = document.getElementById("about-module-info-description");
+    const img = document.getElementById("about-module-info-img");
+
     whole.classList.add("toLeft");
-    
-    // Update content after animation starts
+
     setTimeout(() => {
-        title.textContent = name;
-        description.textContent = module_list[name] || "Description not available";
-        image.src = `/img/Module/Card/${name}.png`;
-        image.onerror = function() {
-            this.src = '/img/Module/Card/default.png'; // Fallback image
-        };
-        
-        // Remove animation class
-        setTimeout(() => {
-            whole.classList.remove("toLeft");
-        }, 50);
+        title.innerHTML = name;
+        des.innerHTML = module_list[name];
+        img.src = "/img/Module/Card/" + name + ".png";
+        whole.classList.remove("toLeft");
     }, 300);
 }
+// ------------------------------------------------------
 
-function initializeModules() {
-    if (!module_list || Object.keys(module_list).length === 0) return;
-    
-    const moduleNames = Object.keys(module_list);
-    
-    // Populate module arrays
-    moduleNames.forEach((name, index) => {
-        const arrayIndex = index >= 5 ? 2 : 1;
-        const arrayElement = document.getElementById(`array-${arrayIndex}`);
-        
-        if (arrayElement) {
-            const img = document.createElement('img');
-            img.src = `/img/Module/Icon/${name}.png`;
-            img.className = 'module-array-img';
-            img.alt = name;
-            img.onclick = () => changeAbtModuleTo(name, img);
-            img.onerror = function() {
-                this.src = '/img/Module/Icon/default.png'; // Fallback icon
-            };
-            
-            arrayElement.appendChild(img);
+function isElementInViewport(el) {
+    // Special bonus for those using jQuery
+    if (typeof jQuery === "function" && el instanceof jQuery) {
+        el = el[0];
+    }
+
+    var rect = el.getBoundingClientRect();
+
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <=
+        (window.innerHeight ||
+            document.documentElement.clientHeight) /* or $(window).height() */ &&
+        rect.right <=
+        (window.innerWidth ||
+            document.documentElement.clientWidth) /* or $(window).width() */
+    );
+}
+// ------------------------------------------------------
+
+function onVisibilityChange(el, callback) {
+    var old_visible;
+    return function() {
+        var visible = isElementInViewport(el);
+        if (visible != old_visible) {
+            old_visible = visible;
+            if (typeof callback == "function") {
+                callback(visible);
+            }
+        }
+    };
+}
+/* -------------------------------------------------------------------------- */
+/*                                   On load                                  */
+/* -------------------------------------------------------------------------- */
+
+window.onload = function() {
+    var i = 0;
+    for (const name in module_list) {
+        var array_index = i >= 5 ? 2 : 1;
+        document.getElementById("array-" + array_index).insertAdjacentHTML(
+            "beforeend",
+            `
+		<img src="/img/Module/Icon/` +
+            name +
+            `.png" class="module-array-img" onclick="changeAbtModuleTo('` +
+            name +
+            `', this)"></img>
+		`
+        );
+        i++;
+    }
+    const first = document.getElementById("array-1").firstElementChild;
+
+    changeAbtModuleTo(Object.keys(module_list)[0], first);
+};
+
+const handler = onVisibilityChange(
+    document.getElementById("dlbutton"),
+    function(bool) {
+        if (bool) {
+            navdlbutton.classList.add("not-active");
+        } else {
+            navdlbutton.classList.remove("not-active");
+        }
+    }
+);
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("body-container-visible");
+        } else {
+            entry.target.classList.remove("body-container-visible");
         }
     });
-    
-    // Select first module
-    const firstArray = document.getElementById('array-1');
-    if (firstArray && firstArray.firstElementChild) {
-        changeAbtModuleTo(moduleNames[0], firstArray.firstElementChild);
-    }
+});
+
+const navdlbutton = document.getElementById("nav-dlbutton");
+const sections = document.querySelectorAll(".body-container");
+
+sections.forEach((el) => observer.observe(el));
+
+if (window.addEventListener) {
+    addEventListener("DOMContentLoaded", handler, false);
+    addEventListener("load", handler, false);
+    addEventListener("scroll", handler, false);
+    addEventListener("resize", handler, false);
+} else if (window.attachEvent) {
+    attachEvent("onDOMContentLoaded", handler); // Internet Explorer 9+ :(
+    attachEvent("onload", handler);
+    attachEvent("onscroll", handler);
+    attachEvent("onresize", handler);
 }
 
-/* ============================================================================
- * INTERSECTION OBSERVER SETUP
- * ============================================================================ */
-
-function setupIntersectionObservers() {
-    const downloadButton = document.getElementById("dlbutton");
-    const navDownloadButton = elements.navDownloadButton;
-    const sections = document.querySelectorAll(".body-container");
-    
-    if (!downloadButton || !navDownloadButton) return;
-    
-    // Set up visibility handler for download button
-    const visibilityHandler = createVisibilityHandler(downloadButton, (isVisible) => {
-        navDownloadButton.classList.toggle("not-active", isVisible);
-    });
-    
-    // Initial check
-    visibilityHandler();
-    
-    // Event listeners for visibility changes
-    const throttledHandler = throttle(visibilityHandler, 100);
-    window.addEventListener('scroll', throttledHandler, { passive: true });
-    window.addEventListener('resize', throttledHandler, { passive: true });
-    
-    // Set up observer for sections
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            entry.target.classList.toggle("body-container-visible", entry.isIntersecting);
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-    
-    sections.forEach(section => sectionObserver.observe(section));
-}
-
-/* ============================================================================
- * INITIALIZATION
- * ============================================================================ */
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Cache DOM elements
-    elements = {
-        video: document.querySelector('.main-video video'),
-        blurScreen: document.querySelector(".blur-screen"),
-        centerText: document.querySelector(".center-text"),
-        brandingImage: document.querySelector('.branding > img'),
-        overlay: document.getElementById("myNav"),
-        navbarContainer: document.getElementById("navbar-container"),
-        navDownloadButton: document.getElementById("nav-dlbutton")
-    };
-    
-    // Initialize components
-    setupVideoBackground();
-    setupBlurScreen();
-    initializeModules();
-    setupIntersectionObservers();
-    
-    // Start title animation
-    const titleAnimator = new TitleAnimator();
-    titleAnimator.start();
-    
-    // Close overlay when clicking outside on mobile
-    if (elements.overlay) {
-        elements.overlay.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeNav();
-            }
-        });
-        
-        // Close overlay with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && elements.overlay.classList.contains('active')) {
-                closeNav();
-            }
-        });
-    }
-    
-    // Add touch support for mobile
-    if ('ontouchstart' in window) {
-        document.documentElement.classList.add('touch-device');
-    }
-});
-
-// Cleanup on page unload
-window.addEventListener('beforeunload', function() {
-    // Cancel any ongoing animations or timeouts
-    const titleAnimator = window.titleAnimator;
-    if (titleAnimator && titleAnimator.intervalId) {
-        clearInterval(titleAnimator.intervalId);
-    }
-    
-    // Clean up video
-    const video = elements.video;
-    if (video) {
-        video.pause();
-        video.currentTime = 0;
-    }
-});
-
-// Error handling
-window.addEventListener('error', function(e) {
-    console.error('Global error:', e.error);
-    // You could add error reporting here
-});
-
-/* ============================================================================
- * EXPORTS (if needed for module system)
- * ============================================================================ */
-
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        invitelink,
-        openNav,
-        closeNav,
-        changeAbtModuleTo
-    };
-      }
+// ---------------------------THE END---------------------------
