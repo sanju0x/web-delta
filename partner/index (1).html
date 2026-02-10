@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="twitter:title" content="Delta Music Bot | Partners" />
+    <meta name="twitter:description" content="Meet our trusted partners who help make Delta Music Bot possible. From hosting to audio services, discover the amazing companies we work with." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name='twitter:image' content='./img/banner.jpg' />
+    <meta name='twitter:image:alt' content='delta partners banner' />
+    <meta property="og:title" content="Delta Partners" />
+    <meta property="og:image:type" content="image/png" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="./css/partners.css" />
+    <link rel="icon" href="/img/IconLogo.png" type="image/png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>Delta Music Bot | Partners</title>
+    <meta name="description" content="Meet our trusted partners who help make Delta Music Bot possible. From hosting to audio services, discover the amazing companies we work with.">
+</head>
+
+<body>
+    <!-- ----------------------------- Normal nav ------------------------------ -->
+    <nav class="nav" id="navbar-container">
+        <a class="branding" href="./index.html">
+            <img aria-hidden="true" alt="Delta Logo" src="../img/logo.jpeg">
+            <p class="glitch" data-text="DELTA">DELTA</p>
+            <img src="../img/Module/Icon/verified_app.png" class="verified" alt="verified">
+        </a>
+        <hr aria-hidden="true">
+        <div aria-hidden="true" id="navbar-items">
+            <a href="index.html#home" class="navbar-responsive-hide navbar-item">Home</a>
+            <a href="index.html#offers" class="navbar-responsive-hide navbar-item">Features</a>
+            <a href="partners.html" class="navbar-responsive-hide navbar-item navbar-item-active">Partners</a>
+            <a href="https://top.gg/bot/1284517036260855901" class="navbar-responsive-hide navbar-item">Vote</a>
+            <a href="terms.html" class="navbar-responsive-hide navbar-item">Legal</a>
+            <a href="https://discord.gg/udsFR6sTyy" class="navbar-responsive-hide navbar-item navbar-icon">
+                <img alt="Discord icon" class="navbar-responsive-hide" src="./img/Discord.png">
+            </a>
+            <div id="nav-dlbutton" class="navbar-item navbar-button" onclick="invitelink()">
+                <p>Invite</p>
+                <span class="material-symbols-outlined">Add</span>
+            </div>
+            <span onclick="openNav()" id="navbar-burga" class="material-symbols-outlined navbar-item">menu</span>
+        </div>
+    </nav>
+
+    <!-- ----------------------------- Overlay nav ----------------------------- -->
+    <div aria-hidden="true" id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <a href="index.html#home" onclick="closeNav()" class="navbar-item">Home</a>
+            <a href="index.html#offers" onclick="closeNav()" class="navbar-item">Features</a>
+            <a href="partners.html" onclick="closeNav()" class="navbar-item">Partners</a>
+            <a href="https://top.gg/bot/1284517036260855901" class="navbar-item">Vote</a>
+            <a href="terms.html" class="navbar-item">Legal</a>
+            <a href="https://discord.gg/udsFR6sTyy" onclick="closeNav()" class="navbar-item">Discord</a>
+        </div>
+    </div>
+
+    <!-- ------------------------------- Hero Section ------------------------------- -->
+    <section class="partners-hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">Trusted Collaborations</p>
+            <h1>Our Amazing Partners</h1>
+            <p class="hero-subtitle">We're proud to work with industry-leading companies that share our commitment to excellence and innovation.</p>
+        </div>
+    </section>
+
+    <!-- ------------------------------- Partners Grid ------------------------------- -->
+    <section class="partners-section">
+        <div class="partners-container">
+            <div id="partners-grid" class="partners-grid">
+                <!-- Partners will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ------------------------------- CTA Section ------------------------------- -->
+    <section class="partners-cta">
+        <div class="cta-content">
+            <h2>Want to Partner with Us?</h2>
+            <p>Join our network of trusted partners and help us deliver the best music experience to Discord servers worldwide.</p>
+            <div class="cta-buttons">
+                <a href="contactform/index.html" class="button button-main">
+                    <span>Contact Us</span>
+                    <span class="material-symbols-outlined">mail</span>
+                </a>
+                <a href="https://discord.gg/udsFR6sTyy" class="button button-outline">
+                    <span>Join Discord</span>
+                    <span class="material-symbols-outlined">forum</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ------------------------------- Footer ------------------------------- -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p class="footer-bottom-text">Made by Sebastian Varkey</p>
+        </div>
+    </footer>
+
+    <script src="./js/main.js"></script>
+    <script src="./js/partners.js"></script>
+</body>
+
+              </html>
