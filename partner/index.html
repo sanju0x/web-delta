@@ -82,6 +82,30 @@
 
 <!-- Required Script (Add before closing </body> tag) -->
 <script>
+window.addEventListener("load", function () {
+
+    const loader = document.getElementById("verity-loading");
+    const progress = document.querySelector(".verity-progress-bar");
+
+    // Start progress animation
+    setTimeout(() => {
+        progress.style.width = "100%";
+    }, 100);
+
+    // Remove loader after animation
+    setTimeout(() => {
+        loader.style.opacity = "0";
+
+        setTimeout(() => {
+            loader.style.display = "none";
+            document.body.classList.remove("loading");
+        }, 600);
+
+    }, 3000);
+
+});
+</script>
+
 
     
     <!-- ----------------------------- Normal nav ------------------------------ -->
