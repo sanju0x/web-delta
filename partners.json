@@ -10,17 +10,16 @@
   "partners": [
     {
       "id": "hosting-partner",
-      "name": "CloudHost Pro",
+      "name": "Endercloud Hosting",
       "category": "Hosting Provider",
       "description": "Premium cloud hosting infrastructure powering Delta's 24/7 uptime and lightning-fast response times across global servers.",
-      "icon": "/img/partners/hosting-icon.png",
-      "banner": "/img/partners/hosting-banner.jpg",
+      "icon": "/img/partners/7.png",
+      "banner": "/img/partners/6.png",
       "enableIcon": true,
       "enableBanner": true,
       "tags": ["Cloud Hosting", "Infrastructure", "24/7 Support"],
       "links": {
-        "website": "https://example.com/hosting",
-        "partnership": "https://example.com/partner-hosting"
+        "partnership": "https://endercloud.in/"
       }
     },
     {
