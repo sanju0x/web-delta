@@ -13,6 +13,7 @@
     <meta property="og:title" content="Delta Partners" />
     <meta property="og:image:type" content="image/png" />
     <link rel="stylesheet" href="../css/styles.css" />
+       <link rel="stylesheet" href="./css/loading.css">
     <link rel="stylesheet" href="./css/partners.css" />
     <link rel="icon" href="/img/IconLogo.png" type="image/png" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -21,6 +22,68 @@
 </head>
 
 <body>
+<!----------------------------LOADING SCREEN------------------------_----------------->
+<div id="verity-loading">
+    <!-- Animated Particles Background -->
+    <div class="verity-particles">
+        <div class="verity-particle"></div>
+        <div class="verity-particle"></div>
+        <div class="verity-particle"></div>
+        <div class="verity-particle"></div>
+        <div class="verity-particle"></div>
+        <div class="verity-particle"></div>
+        <div class="verity-particle"></div>
+        <div class="verity-particle"></div>
+        <div class="verity-particle"></div>
+    </div>
+
+    <div class="verity-container">
+        <!-- Verified Badge with Glow -->
+        <div class="verity-badge">
+            <div class="verity-glow"></div>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Shield/Badge Shape -->
+                <path d="M12 2L3 7V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V7L12 2Z" 
+                      fill="url(#badgeGradient)" 
+                      stroke="#3498db" 
+                      stroke-width="1.5"/>
+                <!-- Checkmark -->
+                <path class="verity-check" 
+                      d="M9 12L11 14L15 10" 
+                      stroke="#ffffff" 
+                      stroke-width="2" 
+                      stroke-linecap="round" 
+                      stroke-linejoin="round"/>
+                <!-- Gradient Definition -->
+                <defs>
+                    <linearGradient id="badgeGradient" x1="3" y1="2" x2="21" y2="23">
+                        <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#2ecc71;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- Title (Customize this) -->
+        <h1 class="verity-title">Delta Partners</h1>
+        
+        <!-- Subtitle (Customize this) -->
+        <p class="verity-subtitle">Verified & Trusted</p>
+
+        <!-- Progress Bar -->
+        <div class="verity-progress">
+            <div class="verity-progress-bar"></div>
+        </div>
+
+        <!-- Loading Text -->
+        <div class="verity-loading-text"></div>
+    </div>
+</div>
+
+<!-- Required Script (Add before closing </body> tag) -->
+<script>
+
+    
     <!-- ----------------------------- Normal nav ------------------------------ -->
     <nav class="nav" id="navbar-container">
         <a class="branding" href="./index.html">
