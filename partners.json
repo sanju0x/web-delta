@@ -16,7 +16,7 @@
       "icon": "/img/partners/7.png",
       "banner": "/img/partners/6.png",
       "enableIcon": true,
-      "enableBanner": true,
+      "enableBanner": false,
       "tags": ["Cloud Hosting", "Infrastructure", "24/7 Support"],
       "links": {
         "partnership": "https://endercloud.in/"
