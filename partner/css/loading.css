@@ -1,0 +1,308 @@
+/* ===== VERITY LOADING SCREEN STYLES ===== */
+/* Add this to your CSS or include as separate file */
+
+/* Main Loading Container */
+#verity-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeOut 0.8s ease 3.2s forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+.verity-container {
+    text-align: center;
+    position: relative;
+}
+
+/* Verified Badge Animation */
+.verity-badge {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 30px;
+    position: relative;
+    animation: badgeFloat 2s ease-in-out infinite;
+}
+
+@keyframes badgeFloat {
+    0%, 100% { 
+        transform: translateY(0px) rotate(0deg); 
+    }
+    50% { 
+        transform: translateY(-15px) rotate(5deg); 
+    }
+}
+
+.verity-badge svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 30px rgba(52, 152, 219, 0.6));
+}
+
+/* Checkmark Animation */
+.verity-check {
+    animation: checkDraw 1s ease 0.5s forwards;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+}
+
+@keyframes checkDraw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Badge Glow Effect */
+.verity-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(52, 152, 219, 0.3) 0%, transparent 70%);
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { 
+        transform: translate(-50%, -50%) scale(1); 
+        opacity: 0.6; 
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.3); 
+        opacity: 0.2; 
+    }
+}
+
+/* Title Styles */
+.verity-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #3498db, #2ecc71);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 15px;
+    animation: titleSlide 0.8s ease 0.2s backwards;
+}
+
+@keyframes titleSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Subtitle */
+.verity-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 40px;
+    animation: titleSlide 0.8s ease 0.4s backwards;
+}
+
+/* Progress Bar Container */
+.verity-progress {
+    width: 300px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+/* Progress Bar Fill */
+.verity-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #3498db, #2ecc71, #3498db);
+    background-size: 200% 100%;
+    animation: progressLoad 4s ease forwards, progressShine 2s linear infinite;
+    border-radius: 2px;
+}
+
+@keyframes progressLoad {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+@keyframes progressShine {
+    to { background-position: 200% 0; }
+}
+
+/* Loading Text with Dots */
+.verity-loading-text {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.verity-loading-text::after {
+    content: 'Loading...';
+    animation: loadingDots 1.5s steps(4) infinite;
+}
+
+@keyframes loadingDots {
+    0%, 20% { content: 'Loading.'; }
+    40% { content: 'Loading..'; }
+    60%, 100% { content: 'Loading...'; }
+}
+
+/* Particle Background Effects */
+.verity-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.verity-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(52, 152, 219, 0.6);
+    border-radius: 50%;
+    animation: particleFloat 3s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+    0%, 100% { 
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { 
+        transform: translateY(-100vh) translateX(20px);
+        opacity: 0;
+    }
+}
+
+/* Particle Positions and Delays */
+.verity-particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.verity-particle:nth-child(2) { left: 20%; animation-delay: 0.5s; }
+.verity-particle:nth-child(3) { left: 30%; animation-delay: 1s; }
+.verity-particle:nth-child(4) { left: 40%; animation-delay: 1.5s; }
+.verity-particle:nth-child(5) { left: 50%; animation-delay: 2s; }
+.verity-particle:nth-child(6) { left: 60%; animation-delay: 2.5s; }
+.verity-particle:nth-child(7) { left: 70%; animation-delay: 0.3s; }
+.verity-particle:nth-child(8) { left: 80%; animation-delay: 0.8s; }
+.verity-particle:nth-child(9) { left: 90%; animation-delay: 1.3s; }
+
+/* Hide Content While Loading */
+body.loading {
+    overflow: hidden;
+}
+
+body.loading .nav,
+body.loading .partners-hero,
+body.loading .partners-main,
+body.loading .partners-cta,
+body.loading .footer,
+body.loading main,
+body.loading section,
+body.loading header {
+    opacity: 0;
+}
+
+/* Fade In Content After Loading */
+.nav,
+.partners-hero,
+.partners-main,
+.partners-cta,
+.footer,
+main,
+section,
+header {
+    animation: fadeInContent 0.8s ease 3.5s forwards;
+}
+
+@keyframes fadeInContent {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .verity-title {
+        font-size: 2rem;
+    }
+    
+    .verity-subtitle {
+        font-size: 1rem;
+    }
+    
+    .verity-badge {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .verity-glow {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .verity-progress {
+        width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .verity-title {
+        font-size: 1.8rem;
+    }
+    
+    .verity-badge {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .verity-glow {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .verity-progress {
+        width: 200px;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    #verity-loading,
+    .verity-badge,
+    .verity-check,
+    .verity-glow,
+    .verity-title,
+    .verity-subtitle,
+    .verity-progress-bar,
+    .verity-particle {
+        animation: none !important;
+    }
+    
+    #verity-loading {
+        transition: opacity 0.3s ease;
+    }
+}
