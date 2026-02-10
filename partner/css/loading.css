@@ -8,7 +8,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(var(--color-graphene1), 1) 0%, rgba(var(--color-graphene2), 0.9) 100%);
+    background: linear-gradient(135deg, rgba(10, 10, 10, 1) 0%, rgba(20, 20, 20, 1) 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,12 +50,12 @@
 .verity-badge svg {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 0 30px rgba(var(--color-accent-2), 0.6));
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
 }
 
-/* Checkmark Stroke Color */
+/* Checkmark Stroke Color - WHITE */
 .verity-check {
-    stroke: rgb(var(--color-accent-2));
+    stroke: rgb(255, 255, 255);
     animation: checkDraw 1s ease 0.5s forwards;
     stroke-dasharray: 100;
     stroke-dashoffset: 100;
@@ -67,10 +67,10 @@
     }
 }
 
-/* Badge Background Circle */
+/* Badge Background Circle - BLACK/GREY */
 .verity-circle {
-    fill: rgba(var(--color-graphene3), 0.9);
-    stroke: rgba(var(--color-accent-2), 0.5);
+    fill: rgba(40, 40, 40, 0.95);
+    stroke: rgba(255, 255, 255, 0.3);
     stroke-width: 2;
 }
 
@@ -83,7 +83,7 @@
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(var(--color-accent-2), 0.3) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
     animation: glowPulse 2s ease-in-out infinite;
 }
 
@@ -102,7 +102,7 @@
 .verity-title {
     font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, rgba(var(--color-accent-1), 0.9), rgba(var(--color-accent-2), 0.9));
+    background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -124,7 +124,7 @@
 /* Subtitle */
 .verity-subtitle {
     font-size: 1.1rem;
-    color: rgba(var(--color-text-primary), 0.7);
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: 40px;
     animation: titleSlide 0.8s ease 0.4s backwards;
 }
@@ -133,7 +133,7 @@
 .verity-progress {
     width: 300px;
     height: 4px;
-    background: rgba(var(--color-text-primary), 0.1);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 2px;
     overflow: hidden;
     margin: 0 auto;
@@ -143,9 +143,9 @@
 .verity-progress-bar {
     height: 100%;
     background: linear-gradient(90deg, 
-        rgba(var(--color-accent-1), 0.8), 
-        rgba(var(--color-accent-2), 0.8), 
-        rgba(var(--color-accent-1), 0.8));
+        rgba(255, 255, 255, 0.8), 
+        rgba(255, 255, 255, 0.9), 
+        rgba(255, 255, 255, 0.8));
     background-size: 200% 100%;
     animation: progressLoad 4s ease forwards, progressShine 2s linear infinite;
     border-radius: 2px;
@@ -164,7 +164,7 @@
 .verity-loading-text {
     margin-top: 20px;
     font-size: 0.9rem;
-    color: rgba(var(--color-text-secondary), 0.8);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .verity-loading-text::after {
@@ -191,9 +191,9 @@
 
 .verity-particle {
     position: absolute;
-    width: 4px;
-    height: 4px;
-    background: rgba(var(--color-accent-2), 0.6);
+    width: 3px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.6);
     border-radius: 50%;
     animation: particleFloat 3s ease-in-out infinite;
 }
@@ -221,6 +221,12 @@
 .verity-particle:nth-child(7) { left: 70%; animation-delay: 0.3s; }
 .verity-particle:nth-child(8) { left: 80%; animation-delay: 0.8s; }
 .verity-particle:nth-child(9) { left: 90%; animation-delay: 1.3s; }
+
+/* Additional White Particles for variety */
+.verity-particle:nth-child(10) { left: 15%; animation-delay: 0.2s; background: rgba(255, 255, 255, 0.4); }
+.verity-particle:nth-child(11) { left: 35%; animation-delay: 0.7s; background: rgba(255, 255, 255, 0.5); }
+.verity-particle:nth-child(12) { left: 65%; animation-delay: 1.2s; background: rgba(255, 255, 255, 0.3); }
+.verity-particle:nth-child(13) { left: 85%; animation-delay: 1.7s; background: rgba(255, 255, 255, 0.4); }
 
 /* Hide Content While Loading */
 body.loading {
@@ -322,13 +328,3 @@ header {
     }
 }
 
-/* SVG Structure for the Verified Badge */
-/* Add this HTML structure for the badge:
-<div class="verity-badge">
-    <svg viewBox="0 0 100 100">
-        <circle class="verity-circle" cx="50" cy="50" r="45"/>
-        <path class="verity-check" d="M30,55 L45,70 L70,35" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <div class="verity-glow"></div>
-</div>
-*/
