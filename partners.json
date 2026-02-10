@@ -24,12 +24,12 @@
       }
     },
     {
-      "id": "naza-partner",
-      "name": "Naza Studios",
-      "category": "Design Partner",
-      "description": "Creative design studio behind Delta's stunning UI/UX, logos, and promotional materials that make our brand stand out.",
-      "icon": "/img/partners/naza-icon.png",
-      "banner": "/img/partners/naza-banner.jpg",
+      "id": "nazha-partner",
+      "name": "Nazha",
+      "category": "Developing Partner",
+      "description": "Creative design  behind Delta's stunning UI/UX, logos, and promotional materials that make our brand stand out.",
+      "icon": "/img/partners/nazhanewlogo.png",
+      "banner": "/img/partners/nazhabannernew.png",
       "enableIcon": true,
       "enableBanner": true,
       "tags": ["UI/UX Design", "Branding", "Graphics"],
